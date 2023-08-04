@@ -39,7 +39,7 @@ def find_matching_images(query_image_path, user_folder, threshold=0.3):
 model = MobileNetV2(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
 
 # Example usage
-user_input_folder = input("Enter the folder name: ")
+user_input_folder = input("Enter name: ")
 query_image_path = "C:\\Users\\reini\\Documents\\Developer Projects\\Python\\Photocard-Name-Identifier-V1\\pc query\\query.jpg"
 matching_files = find_matching_images(query_image_path, user_input_folder)
 
