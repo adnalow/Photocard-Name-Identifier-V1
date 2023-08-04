@@ -13,7 +13,7 @@ def get_image_embedding(image_path, model):
     embedding = model.predict(img_array)
     return embedding.flatten()
 
-def find_matching_images(query_image_path, user_folder, threshold=0.7):
+def find_matching_images(query_image_path, user_folder, threshold=0.3):
     # Load the query image and compile a list of filenames for the compiled images in the user folder
     query_embedding = get_image_embedding(query_image_path, model)
     compiled_images_dir = os.path.join("C:\\Users\\reini\\Documents\\Developer Projects\\Python\\Photocard-Name-Identifier-V1\\girl group templates", user_folder)
