@@ -1,9 +1,10 @@
 import cv2
 import os
 
-def find_matching_images(query_image_path, compiled_images_dir, threshold=0.7):
-    # Load the query image and compile a list of filenames for the compiled images
+def find_matching_images(query_image_path, user_folder, threshold=0.5):
+    # Load the query image and compile a list of filenames for the compiled images in the user folder
     query_image = cv2.imread(query_image_path)
+    compiled_images_dir = os.path.join("C:\\Users\\reini\\Documents\\Developer Projects\\Python\\Photocard-Name-Identifier-V1\\girl group templates", user_folder)
     compiled_filenames = os.listdir(compiled_images_dir)
 
     # Initialize feature detector and matcher
@@ -31,15 +32,15 @@ def find_matching_images(query_image_path, compiled_images_dir, threshold=0.7):
         good_matches = [m for m in matches if m.distance < threshold * m.distance]
 
         # If enough good matches are found, consider it a match and store the filename
-        if len(good_matches) > 10:  # You can adjust this threshold based on your needs
+        if len(good_matches) > 5:  # You can adjust this threshold based on your needs
             matching_filenames.append(filename)
 
     return matching_filenames
 
 # Example usage
-query_image_path = "path/to/your/query_image.jpg"
-compiled_images_dir = "path/to/your/compiled_images_folder"
-matching_files = find_matching_images(query_image_path, compiled_images_dir)
+user_input_folder = input("Enter the folder name: ")
+query_image_path = "C:\\Users\\reini\\Documents\\Developer Projects\\Python\\Photocard-Name-Identifier-V1\\pc query\\query.jpg"
+matching_files = find_matching_images(query_image_path, user_input_folder)
 
 if len(matching_files) > 0:
     print("Matching filenames found:")
