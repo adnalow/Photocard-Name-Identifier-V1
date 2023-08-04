@@ -1,18 +1,23 @@
 import cv2
 import os
+import numpy as np
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
+
+def get_image_embedding(image_path, model):
+    img = load_img(image_path, target_size=(224, 224))
+    img_array = img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array = preprocess_input(img_array)
+    embedding = model.predict(img_array)
+    return embedding.flatten()
 
 def find_matching_images(query_image_path, user_folder, threshold=0.7):
     # Load the query image and compile a list of filenames for the compiled images in the user folder
-    query_image = cv2.imread(query_image_path)
+    query_embedding = get_image_embedding(query_image_path, model)
     compiled_images_dir = os.path.join("C:\\Users\\reini\\Documents\\Developer Projects\\Python\\Photocard-Name-Identifier-V1\\girl group templates", user_folder)
     compiled_filenames = os.listdir(compiled_images_dir)
-
-    # Initialize feature detector and matcher
-    orb = cv2.ORB_create()
-    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
-
-    # Detect and compute features for the query image
-    kp_query, des_query = orb.detectAndCompute(query_image, None)
 
     # List to store matching filenames
     matching_filenames = []
@@ -20,22 +25,18 @@ def find_matching_images(query_image_path, user_folder, threshold=0.7):
     # Loop over compiled images and find matches
     for filename in compiled_filenames:
         compiled_image_path = os.path.join(compiled_images_dir, filename)
-        compiled_image = cv2.imread(compiled_image_path)
+        compiled_embedding = get_image_embedding(compiled_image_path, model)
 
-        # Detect and compute features for the compiled image
-        kp_compiled, des_compiled = orb.detectAndCompute(compiled_image, None)
+        # Calculate the cosine similarity between the query embedding and the compiled embedding
+        similarity = np.dot(query_embedding, compiled_embedding) / (np.linalg.norm(query_embedding) * np.linalg.norm(compiled_embedding))
 
-        # Match features
-        matches = bf.match(des_query, des_compiled)
-
-        # Apply the ratio test to find good matches
-        good_matches = [m for m in matches if m.distance < threshold * m.distance]
-
-        # If enough good matches are found, consider it a match and store the filename
-        if len(good_matches) > 10:  # You can adjust this threshold based on your needs
+        if similarity > threshold:
             matching_filenames.append(filename)
 
     return matching_filenames
+
+# Load MobileNetV2 pre-trained model
+model = MobileNetV2(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
 
 # Example usage
 user_input_folder = input("Enter the folder name: ")
