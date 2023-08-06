@@ -14,18 +14,27 @@ The program initiates by prompting the user to provide the name of the idol feat
 
 ---
 ## :art:*Program Personalization*
-If ever that you want to use your own template and allow the program to use it so that you can finally use this program, just follow these steps:
+To utilize your own template and enable the program to identify it, kindly adhere to these steps:
 
-1. Make a new folder under templates named to the idol 
-2. Inside that folder, put all the photocard templates. 
-    Make sure to rename each photocard to their respective names.
-3. Replace the query.jpg under the pc query folder with the picture of the photocard that you want to know the name.
-    Don't forget to rename the picture back to query.jpg
-4. Run the program 
+1. Create a new folder within the "templates" directory, naming it after the idol.
+2. Place all the photocard templates inside that folder, ensuring each photocard is renamed according to their respective names.
+3. Replace the existing "query.jpg" in the "pc query" folder with the picture of the photocard you want to identify. 
+    Remember to rename the     picture back to "query.jpg."
+4. Execute the program, and you're all set! It will now identify the photocard based on your customized template.
 
 *Important note!*:loudspeaker: 
     
-If you want to adjust the accuracy of the the program, just adjust the threshold level in main.py. The existing threshold is tested on the existing template so just adjust adjust it based on the accuracy that will be given by the program by using your own template
+To fine-tune the accuracy of the program, follow these steps:
+
+1. Open the "main.py" file.
+2. Look for the threshold level variable in the code.
+3. This threshold is currently optimized for the existing template, but you can easily modify it to suit your own template.
+4. Run the program with your customized template and observe the accuracy provided by the program.
+5. Based on the program's accuracy output, adjust the threshold level accordingly. 
+    Increase the threshold if you want to be more lenient in matching, or decrease it for stricter matching.
+6. Keep experimenting with different threshold levels until you achieve the desired accuracy for your template.
+
+By adjusting the threshold level, you can optimize the program to accurately recognize photocard templates based on your specific requirements.
 
 ---
 
