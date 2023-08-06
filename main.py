@@ -38,14 +38,21 @@ def find_matching_images(query_image_path, user_folder, threshold=0.5):
 # Load MobileNetV2 pre-trained model
 model = MobileNetV2(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
 
-# Example usage
-user_input_folder = input("Enter name: ")
-query_image_path = "C:\\Users\\reini\\Documents\\Developer Projects\\Python\\Photocard-Name-Identifier-V1\\pc query\\query.jpg"
-matching_files = find_matching_images(query_image_path, user_input_folder)
 
-if len(matching_files) > 0:
-    print("Match found:")
-    for filename in matching_files:
-        print(filename)
-else:
-    print("No matching found.")
+while True:
+    user_input_folder = input("Enter name: ")
+    query_image_path = "C:\\Users\\reini\\Documents\\Developer Projects\\Python\\Photocard-Name-Identifier-V1\\pc query\\query.jpg"
+
+    try:
+        matching_files = find_matching_images(query_image_path, user_input_folder)
+
+        if len(matching_files) > 0:
+            print("Match found:")
+            for filename in matching_files:
+                print(filename)
+            break  # Exit the loop if a match is found
+        else:
+            print("No matching found for the given name. Please enter a valid name.")
+            
+    except FileNotFoundError:
+        print("The specified folder does not exist. Please enter an existing folder name.")
