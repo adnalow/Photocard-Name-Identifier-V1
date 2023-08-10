@@ -33,9 +33,10 @@ To fine-tune the accuracy of the program, follow these steps:
 5. Based on the program's accuracy output, adjust the threshold level accordingly. 
     Increase the threshold if you want to be more lenient in matching, or decrease it for stricter matching.
 6. Keep experimenting with different threshold levels until you achieve the desired accuracy for your template.
+7. Having a clear image for your template can also boost the recongnition accuracy to a maxinum level.
 
-By adjusting the threshold level, you can optimize the program to accurately recognize photocard templates based on your specific requirements.
-Having a clear image for your template can also boost the recongnition accuracy to maxinum level.
+By adjusting the threshold level and having a clear image template, you can optimize the program to accurately recognize photocard templates based on your specific requirements.
+
 ---
 
 
